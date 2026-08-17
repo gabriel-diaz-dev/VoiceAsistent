@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voiceasistent"
+version = "0.1.0"
+description = "Dictado por voz push-to-talk local para Windows y Linux con transcripcion Whisper"
+requires-python = ">=3.11"
+dependencies = [
+    "pynput>=1.7.6",
+    "pyperclip>=1.9.0",
+]
+
+[project.optional-dependencies]
+speech = [
+    "RealtimeSTT[faster-whisper]>=0.3.5",
+]
+ollama = [
+    "requests>=2.31.0",
+]
+dev = [
+    "ruff>=0.6.0",
+]
+
+[project.scripts]
+voiceasistent = "voiceasistent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
