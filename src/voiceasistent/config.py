@@ -178,7 +178,8 @@ def _build_config(data: dict[str, Any]) -> AppConfig:
     _require_positive(ollama_timeout_seconds, "ollama.timeout_seconds")
 
     beam_size = int(speech.get("beam_size", 1))
-    _require_positive(beam_size, "speech.beam_size")
+    if beam_size < 1:
+        raise ConfigError(f"speech.beam_size debe ser 1 o mayor; se recibio {beam_size}.")
 
     return AppConfig(
         hotkey=hotkey,
