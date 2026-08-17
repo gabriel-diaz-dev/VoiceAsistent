@@ -1,4 +1,5 @@
 """Unit tests para voiceasistent.config."""
+
 import tempfile
 import unittest
 from pathlib import Path
@@ -54,8 +55,7 @@ class LoadConfigTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.toml"
             path.write_text(
-                "[speech]\nmodel = \"small\"\nlanguage = \"es\"\n"
-                "[hotkey]\nkey = \"ctrl+f9\"\n",
+                '[speech]\nmodel = "small"\nlanguage = "es"\n[hotkey]\nkey = "ctrl+f9"\n',
                 encoding="utf-8",
             )
             config = load_config(path)
@@ -66,21 +66,21 @@ class LoadConfigTests(unittest.TestCase):
     def test_invalid_model_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.toml"
-            path.write_text("[speech]\nmodel = \"huge\"\n", encoding="utf-8")
+            path.write_text('[speech]\nmodel = "huge"\n', encoding="utf-8")
             with self.assertRaises(ConfigError):
                 load_config(path)
 
     def test_invalid_device_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.toml"
-            path.write_text("[speech]\ndevice = \"vulkan\"\n", encoding="utf-8")
+            path.write_text('[speech]\ndevice = "vulkan"\n', encoding="utf-8")
             with self.assertRaises(ConfigError):
                 load_config(path)
 
     def test_invalid_output_mode_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.toml"
-            path.write_text("[output]\nmode = \"email\"\n", encoding="utf-8")
+            path.write_text('[output]\nmode = "email"\n', encoding="utf-8")
             with self.assertRaises(ConfigError):
                 load_config(path)
 

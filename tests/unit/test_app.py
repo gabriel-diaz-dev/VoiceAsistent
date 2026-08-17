@@ -1,4 +1,5 @@
 """Unit tests para voiceasistent.app."""
+
 import unittest
 
 from voiceasistent.app import PushToTalkApp

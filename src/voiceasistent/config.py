@@ -1,4 +1,5 @@
 """Configuracion tipada y validada para VoiceAsistent."""
+
 from __future__ import annotations
 
 import tomllib
@@ -23,13 +24,53 @@ ALLOWED_MODELS = {
 ALLOWED_DEVICES = {"auto", "cuda", "cpu"}
 ALLOWED_OUTPUT_MODES = {"paste", "type", "clipboard"}
 ALLOWED_HOTKEY_NAMES = {
-    "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10",
-    "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20",
-    "esc", "tab", "space", "enter", "backspace", "insert", "delete",
-    "home", "end", "page_up", "page_down", "pause", "print_screen",
-    "scroll_lock", "caps_lock", "num_lock", "menu",
-    "ctrl", "alt", "shift", "cmd", "win", "alt_gr",
-    "up", "down", "left", "right",
+    "f1",
+    "f2",
+    "f3",
+    "f4",
+    "f5",
+    "f6",
+    "f7",
+    "f8",
+    "f9",
+    "f10",
+    "f11",
+    "f12",
+    "f13",
+    "f14",
+    "f15",
+    "f16",
+    "f17",
+    "f18",
+    "f19",
+    "f20",
+    "esc",
+    "tab",
+    "space",
+    "enter",
+    "backspace",
+    "insert",
+    "delete",
+    "home",
+    "end",
+    "page_up",
+    "page_down",
+    "pause",
+    "print_screen",
+    "scroll_lock",
+    "caps_lock",
+    "num_lock",
+    "menu",
+    "ctrl",
+    "alt",
+    "shift",
+    "cmd",
+    "win",
+    "alt_gr",
+    "up",
+    "down",
+    "left",
+    "right",
 }
 
 MAX_HOTKEY_KEYS = 3
@@ -87,17 +128,17 @@ def parse_hotkey(spec: str) -> tuple[str, ...]:
         elif key in ALLOWED_HOTKEY_NAMES:
             normalized.append(key)
         else:
-            raise ConfigError(
-                f"Tecla desconocida: {key!r}. Usa letras, numeros, f1-f20 o nombres como ctrl, alt, shift."
+            message = (
+                f"Tecla desconocida: {key!r}. Usa letras, numeros, f1-f20 "
+                "o nombres como ctrl, alt, shift."
             )
+            raise ConfigError(message)
     return tuple(normalized)
 
 
 def _require_choice(value: str, allowed: set[str], field: str) -> str:
     if value not in allowed:
-        raise ConfigError(
-            f"{field} invalido: {value!r}. Opciones: {', '.join(sorted(allowed))}."
-        )
+        raise ConfigError(f"{field} invalido: {value!r}. Opciones: {', '.join(sorted(allowed))}.")
     return value
 
 

@@ -1,4 +1,5 @@
 """Salida del texto transcrito hacia la ventana enfocada, con fallback de tecleo."""
+
 from __future__ import annotations
 
 import logging

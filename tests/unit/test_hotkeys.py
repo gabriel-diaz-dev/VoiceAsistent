@@ -1,4 +1,5 @@
 """Unit tests para voiceasistent.hotkeys."""
+
 import unittest
 
 from voiceasistent.hotkeys import HoldGate, normalize_key

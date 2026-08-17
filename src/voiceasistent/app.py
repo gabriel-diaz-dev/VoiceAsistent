@@ -1,4 +1,5 @@
 """Orquestacion del flujo push-to-talk: tecla -> grabacion -> transcripcion -> salida."""
+
 from __future__ import annotations
 
 import logging
@@ -35,18 +36,22 @@ class PushToTalkApp:
         max_recording_seconds: float,
     ) -> None:
         self._engine = engine
-        self._gate = gate
+        self.gate = gate
         self._output = output
         self._max_recording_seconds = max_recording_seconds
 
+    @property
+    def is_holding(self) -> bool:
+        return self.gate.is_holding
+
     def on_key_press(self, key: str | None) -> None:
-        action = self._gate.press(key)
+        action = self.gate.press(key)
         if action == "start":
             logger.info("Grabacion iniciada con la tecla push-to-talk.")
             self._engine.start()
 
     def on_key_release(self, key: str | None) -> OutputResult | None:
-        action = self._gate.release(key)
+        action = self.gate.release(key)
         if action != "stop":
             return None
         logger.info("Grabacion detenida; transcribiendo.")
@@ -54,10 +59,10 @@ class PushToTalkApp:
         return self._finish()
 
     def on_recording_timeout(self) -> OutputResult | None:
-        if not self._gate.is_holding:
+        if not self.gate.is_holding:
             return None
         logger.warning("Tiempo maximo de grabacion alcanzado; transcribiendo.")
-        self._gate.release(self._gate._required[0])
+        self.gate.release(self.gate._required[0])
         self._engine.stop()
         return self._finish()
 

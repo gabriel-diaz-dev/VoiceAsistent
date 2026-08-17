@@ -1,4 +1,5 @@
 """Unit tests para voiceasistent.output."""
+
 import unittest
 
 from voiceasistent.output import OutputWriter

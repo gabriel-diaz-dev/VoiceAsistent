@@ -1,4 +1,5 @@
 """Logica pura de la tecla push-to-talk, sin dependencias de pynput."""
+
 from __future__ import annotations
 
 from .config import ALLOWED_HOTKEY_NAMES

@@ -1,4 +1,5 @@
 """Seleccion del backend de transcripcion (CUDA con fallback a CPU int8)."""
+
 from __future__ import annotations
 
 import logging

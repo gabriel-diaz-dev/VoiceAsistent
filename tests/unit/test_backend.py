@@ -1,4 +1,5 @@
 """Unit tests para voiceasistent.backend."""
+
 import unittest
 
 from voiceasistent.backend import decide_backend
