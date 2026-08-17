@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from voiceasistent import cli
+from voiceasistent.config import AppConfig
 
 
 class ParserTests(unittest.TestCase):
@@ -62,7 +63,7 @@ class CommandTests(unittest.TestCase):
     def test_run_wires_flow_and_stops_cleanly(
         self, load_config, _detect_cuda, engine_class, runner_class, listener_class
     ):
-        config = cli.load_config.__globals__["AppConfig"](hotkey="f9")
+        config = AppConfig(hotkey="f9")
         load_config.return_value = config
         runner = runner_class.return_value
         runner.run_forever.side_effect = KeyboardInterrupt
@@ -93,7 +94,7 @@ class EngineFallbackTests(unittest.TestCase):
         with patch("voiceasistent.cli.RealtimeSttEngine") as engine_class:
             engine_class.side_effect = [RuntimeError("cuda"), object()]
             engine = cli._create_engine_with_fallback(
-                cli.load_config.__globals__["AppConfig"](hotkey="f9"),
+                AppConfig(hotkey="f9"),
                 BackendDecision(
                     device="cuda",
                     compute_type="float16",
@@ -111,7 +112,7 @@ class EngineFallbackTests(unittest.TestCase):
         with patch("voiceasistent.cli.RealtimeSttEngine", side_effect=RuntimeError("cpu")):
             with self.assertRaises(RuntimeError):
                 cli._create_engine_with_fallback(
-                    cli.load_config.__globals__["AppConfig"](hotkey="f9"),
+                    AppConfig(hotkey="f9"),
                     BackendDecision(
                         device="cpu",
                         compute_type="int8",
