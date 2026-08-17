@@ -126,7 +126,14 @@ el hipervisor permite portapapeles del host al invitado.
 
 ## Pendientes no bloqueantes
 
-- Hardware real y modelo definitivo: se decide con el doctor y una medicion.
 - Hipervisor exacto y sistema invitado: se validan en los smoke tests.
 - Wayland: requiere una ruta de captura y pegado especifica.
 - Ejecutable Windows: se aborda despues del MVP Python.
+
+## Hardware confirmado
+
+- Dell Latitude 5480, Windows 10 Home 19045, 15.86 GB RAM, i7-7600U (2C/4T),
+  sin GPU dedicada (Intel HD 620), Python 3.13, microfonos Realtek OK.
+- Consecuencia: backend definitivo CPU `int8`, modelo `base`, `beam_size = 1`.
+- CUDA queda descartado en este equipo; el modo `auto` lo detecta y no cambia
+  nada de configuracion.

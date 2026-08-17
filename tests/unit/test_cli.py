@@ -1,4 +1,5 @@
 """Unit tests para la CLI."""
+
 import tempfile
 import unittest
 from pathlib import Path

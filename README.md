@@ -85,6 +85,18 @@ python -m venv .venv
 PYTHONPATH=src python -m unittest discover -s tests -t .
 ```
 
+## Hardware confirmado (Dell Latitude 5480)
+
+Perfil validado para un Dell Latitude 5480 (Windows 10, i7-7600U 2C/4T, sin
+GPU dedicada):
+
+- Backend: CPU con cuantización `int8` (el modo `auto` lo resuelve solo).
+- Modelo: `base` (descarga inicial de ~150 MB la primera vez que se ejecuta).
+- `beam_size = 1` para minimizar latencia; usa `5` si prefieres más precisión
+  y aceptas esperar más.
+- Latencia esperada por frase corta (3-8 s de audio): entre 2 y 8 segundos.
+  Si te parece mucho, cambia `model = "tiny"` en `config.toml`.
+
 ## Privacidad
 
 Sin guardado de audio ni historial; sin telemetría. Ollama (fase posterior)

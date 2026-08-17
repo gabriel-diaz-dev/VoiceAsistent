@@ -91,6 +91,13 @@ class LoadConfigTests(unittest.TestCase):
             with self.assertRaises(ConfigError):
                 load_config(path)
 
+    def test_zero_beam_size_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.toml"
+            path.write_text("[speech]\nbeam_size = 0\n", encoding="utf-8")
+            with self.assertRaises(ConfigError):
+                load_config(path)
+
 
 class WriteDefaultConfigTests(unittest.TestCase):
     def test_round_trip_defaults(self):

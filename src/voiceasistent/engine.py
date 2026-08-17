@@ -18,6 +18,7 @@ def build_recorder_kwargs(config: AppConfig, decision: BackendDecision) -> dict[
         "language": config.whisper_language,
         "device": decision.device,
         "compute_type": decision.compute_type,
+        "beam_size": config.beam_size,
         "enable_realtime_transcription": False,
         "spinner": False,
         "no_log_file": True,

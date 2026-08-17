@@ -91,6 +91,7 @@ class AppConfig:
     device: str = "auto"
     compute_type: str = "default"
     cpu_compute_type: str = "int8"
+    beam_size: int = 1
     output_mode: str = "paste"
     keep_clipboard: bool = True
     paste_delay_ms: int = 100
@@ -176,6 +177,9 @@ def _build_config(data: dict[str, Any]) -> AppConfig:
     ollama_timeout_seconds = float(ollama.get("timeout_seconds", 10.0))
     _require_positive(ollama_timeout_seconds, "ollama.timeout_seconds")
 
+    beam_size = int(speech.get("beam_size", 1))
+    _require_positive(beam_size, "speech.beam_size")
+
     return AppConfig(
         hotkey=hotkey,
         hotkey_keys=hotkey_keys,
@@ -184,6 +188,7 @@ def _build_config(data: dict[str, Any]) -> AppConfig:
         device=device,
         compute_type=str(speech.get("compute_type", "default")),
         cpu_compute_type=str(speech.get("cpu_compute_type", "int8")),
+        beam_size=beam_size,
         output_mode=output_mode,
         keep_clipboard=bool(output.get("keep_clipboard", True)),
         paste_delay_ms=paste_delay_ms,
@@ -218,6 +223,7 @@ language = "auto"           # auto = autodeteccion; tambien "es", "en", ...
 device = "auto"             # auto | cuda | cpu (auto prueba CUDA y cae a CPU)
 compute_type = "default"    # precision para CUDA (default, float16, int8...)
 cpu_compute_type = "int8"   # precision usada cuando se ejecuta en CPU
+beam_size = 1               # 1 = mas rapido (recomendado en CPU); 5 = mas preciso
 
 [audio]
 input_device_index = -1     # -1 = microfono por defecto

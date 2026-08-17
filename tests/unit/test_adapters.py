@@ -1,4 +1,5 @@
 """Tests de los adaptadores perezosos con modulos falsos inyectados."""
+
 import sys
 import types
 import unittest

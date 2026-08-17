@@ -35,6 +35,21 @@ class BuildRecorderKwargsTests(unittest.TestCase):
         )
         self.assertEqual(kwargs["language"], "es")
 
+    def test_beam_size_defaults_to_one(self):
+        kwargs = build_recorder_kwargs(
+            self.config,
+            BackendDecision(device="cpu", compute_type="int8", cuda_attempted=False, notes=()),
+        )
+        self.assertEqual(kwargs["beam_size"], 1)
+
+    def test_beam_size_from_config(self):
+        config = AppConfig(hotkey="f9", beam_size=5)
+        kwargs = build_recorder_kwargs(
+            config,
+            BackendDecision(device="cpu", compute_type="int8", cuda_attempted=False, notes=()),
+        )
+        self.assertEqual(kwargs["beam_size"], 5)
+
     def test_realtime_transcription_disabled(self):
         kwargs = build_recorder_kwargs(
             self.config,
